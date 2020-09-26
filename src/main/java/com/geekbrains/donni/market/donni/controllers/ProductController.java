@@ -16,26 +16,20 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping
-    public String showAllProducts (Model model) {
+    public String showAllProducts (Model model, @RequestParam(defaultValue = "-1") int minPrice, @RequestParam(defaultValue = "-1") int maxPrice) {
+        if (minPrice != -1 && maxPrice != -1) {
+            model.addAttribute("products", productService.findAllByPriceBetween(minPrice, maxPrice));
+            return "products";
+        }
+        if (minPrice != -1) {
+            model.addAttribute("products", productService.findAllByPriceGreaterThanEqual(minPrice));
+            return "products";
+        }
+        if (maxPrice != -1) {
+            model.addAttribute("products", productService.findAllByPriceLessThanEqual(maxPrice));
+            return "products";
+        }
         model.addAttribute("products", productService.findAll());
-        return "products";
-    }
-
-    @RequestMapping(value = "/min", method = RequestMethod.GET)
-    public String showProductsByPriceGreaterThanEqual (Model model, @RequestParam int minPrice) {
-        model.addAttribute("products", productService.findAllByPriceGreaterThanEqual(minPrice));
-        return "products";
-    }
-
-    @RequestMapping(value = "/max", method = RequestMethod.GET)
-    public String showProductsByPriceLessThanEqual (Model model, @RequestParam int maxPrice) {
-        model.addAttribute("products", productService.findAllByPriceLessThanEqual(maxPrice));
-        return "products";
-    }
-
-    @RequestMapping(value = "/range", method = RequestMethod.GET)
-    public String showProductsByPriceBetween (Model model, @RequestParam int minPrice, @RequestParam int maxPrice) {
-        model.addAttribute("products", productService.findAllByPriceBetween(minPrice, maxPrice));
         return "products";
     }
 }
