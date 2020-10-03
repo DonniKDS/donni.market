@@ -3,28 +3,27 @@ package com.geekbrains.donni.market.donni.services;
 import com.geekbrains.donni.market.donni.entities.Product;
 import com.geekbrains.donni.market.donni.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class ProductService {
     private ProductRepository productRepository;
 
-    public List<Product> findAll() {
-        return productRepository.findAll();
+    public Page<Product> findAll(Specification<Product> spec, int page, int size) {
+        return productRepository.findAll(spec, PageRequest.of(page, size));
     }
 
-    public List<Product> findAllByPriceGreaterThanEqual (int minPrice) {
-        return productRepository.findAllByPriceGreaterThanEqual(minPrice);
+    public Optional<Product> findById(Long id) {
+        return productRepository.findById(id);
     }
 
-    public List<Product> findAllByPriceLessThanEqual (int maxPrice) {
-        return productRepository.findAllByPriceLessThanEqual(maxPrice);
-    }
-
-    public List<Product> findAllByPriceBetween (int minPrice, int maxPrice) {
-        return productRepository.findAllByPriceBetween(minPrice, maxPrice);
+    public Product saveOrUpdate(Product product) {
+        return productRepository.save(product);
     }
 }
