@@ -18,14 +18,19 @@ public class Order {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
-
     @OneToMany(mappedBy = "order")
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<OrderItem> items;
 
     @Column(name = "price")
     private int price;
+
+    @Column(name = "customer_name")
+    private String customerName;
+
+    @Column(name = "customer_phone")
+    private Long customerPhone;
+
+    @Column(name = "customer_address")
+    private String customerAddress;
 }

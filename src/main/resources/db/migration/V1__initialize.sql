@@ -1,9 +1,3 @@
-create table customers (
-    id                      bigserial,
-    name                    varchar(255) not null,
-    primary key (id)
-);
-
 create table products (
     id                      bigserial primary key,
     title                   varchar(255),
@@ -12,8 +6,10 @@ create table products (
 
 create table orders (
     id                      bigserial primary key,
-    customer_id             bigint references customers(id),
-    price                   int
+    price                   int,
+    customer_name           varchar(255),
+    customer_phone          bigint,
+    customer_address        varchar(255)
 );
 
 create table order_items (
@@ -47,9 +43,3 @@ values
 ('Product18', 18),
 ('Product19', 19),
 ('Product20', 20);
-
-insert into customers (name)
-values
-('Customer1'),
-('Customer2'),
-('Customer3');
