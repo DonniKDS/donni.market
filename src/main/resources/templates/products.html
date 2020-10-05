@@ -52,7 +52,8 @@
             <td th:text="${p.title}"/>
             <td th:text="${p.price}"/>
             <td>
-                <a class="btn btn-primary" th:href="@{'/products/edit/' + ${p.id}}">Изменить</a>
+                <a class="btn btn-primary" th:href="@{'/cart/add/' + ${p.id}}">Добавить</a>
+                <a class="btn btn-danger" th:href="@{'/products/edit/' + ${p.id}}">Изменить</a>
             </td>
         </tr>
         </tbody>
