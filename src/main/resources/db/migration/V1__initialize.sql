@@ -4,6 +4,23 @@ create table products (
     price                   int
 );
 
+create table orders (
+    id                      bigserial primary key,
+    price                   int,
+    customer_name           varchar(255),
+    customer_phone          bigint,
+    customer_address        varchar(255)
+);
+
+create table order_items (
+    id                      bigserial primary key,
+    product_id              bigint references products(id),
+    order_id                bigint references orders(id),
+    price                   int,
+    price_per_product       int,
+    quantity                int
+);
+
 insert into products (title, price)
 values
 ('Apple', 1),

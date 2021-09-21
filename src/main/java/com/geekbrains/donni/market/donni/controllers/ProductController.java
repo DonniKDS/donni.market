@@ -8,10 +8,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @Controller
@@ -36,7 +34,7 @@ public class ProductController {
 
     @GetMapping ("/edit/{id}")
     public String showEditForm (Model model, @PathVariable Long id) {
-        Product product = productService.findById(id).orElseThrow(() ->new ResourceNotFoundException("Product not fount. ID " + id));
+        Product product = productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product not fount. ID " + id));
         model.addAttribute("product", product);
         return "edit_product";
     }
